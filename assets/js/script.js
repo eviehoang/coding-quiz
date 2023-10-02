@@ -1,20 +1,24 @@
 // Variables for questions
+var intro = document.getElementById("intro_page");
 var goBtn = document.getElementById("goBtn");
-var answer1 = document.getElementById("answer1");
-var answer2 = document.getElementById("answer1");
-var answer3 = document.getElementById("answer1");
-var answer4 = document.getElementById("answer1");
-var questionsPage = document.getElementById("question-box")
 
-var checkArea = document.getElementById("check-answer");
-var timeArea = document.getElementById("timer");
+var questionsPage = document.getElementById("question-box");
+var qustionAsk = document.getElementById("ask-question");
+
+var answers = document.getElementsByClassName("answers")
+var answer1 = document.getElementById("answer1");
+var answer2 = document.getElementById("answer2");
+var answer3 = document.getElementById("answer3");
+var answer4 = document.getElementById("answer4");
+
+
 var checker = document.getElementById("check-answer");
 
 // Questions
 var qSource = [
     {
         question: "The condition of a function is wrapped with a ____.",
-        choices: ["quotation Marks", "curly brackets", "parentheses", "square Brackets"],
+        choices: ["quotation marks", "curly brackets", "parentheses", "square Brackets"],
         answer: "parentheses",
     },
 
@@ -55,9 +59,10 @@ var qSource = [
 
 // Timer
 var timer = document.getElementById("timer");
+var timerElement = document.getElementById("timer")
 var timeLeft = 60;
 var qNumber = 0;
-var score = 0;
+var finalScore = 0;
 var qCount = 1;
 
 // Timer: When I click the start button, then the timer starts. 
@@ -65,18 +70,14 @@ var qCount = 1;
 
 function time() {
     var timeInterval = setInterval(function () {
-
         timeLeft--;
-        timeLeft.textContent = timeLeft;
+        timerElement.textContent = timeLeft; // Update the timer display
 
-        if (timeLeft = 0) {
+        if (timeLeft <= 0) {
             clearInterval(timeInterval);
-            timeLeft.textContent = "Oh no!!";
-            questions.textContent = "Time is up!";
+            timerElement.textContent = "Oh no!!";
             gameOver();
-        }
-
-        else if (qCount >= questionsPage.length + 1) {
+        } else if (qCount >= qSource.length + 1) {
             clearInterval(timeInterval);
             gameOver();
         }
@@ -85,20 +86,22 @@ function time() {
 
 // Starting the quiz.
 function start() {
-    questionsPage.style.display = "block";
-    qNumber = 0
+    intro.style.display = "none";
+    questionsPage.style.display = "contents";
+    goBtn.style.display = "none";
+    qNumber = 0;
     time();
     showQuestion(qNumber);
 };
 
 // Call on Question & Answers
-function showQuestion(e) {
-    questionsPage.textContent = qSource[e].question;
-    answer1.textContent = qSource[e].choices[0];
-    answer2.textContent = qSource[e].choices[1];
-    answer3.textContent = qSource[e].choices[2];
-    answer4.textContent = qSource[e].choices[3];
-    e = qNumber;
+function showQuestion(n) {
+    qustionAsk.textContent = qSource[n].question; 
+    answer1.textContent = qSource[n].choices[0];
+    answer2.textContent = qSource[n].choices[1];
+    answer3.textContent = qSource[n].choices[2];
+    answer4.textContent = qSource[n].choices[3];
+    n = qNumber;
 };
 
 // // If answer is right or wrong, display.

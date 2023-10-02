@@ -15,21 +15,29 @@
         </header>
     </div>
     <main class="container">
-        <h1>::Coding ⭐ Quiz::</h1>
-        <h2>Try your best to answer the following Javascript questions. Remember to have fun! Click go to start! 😊
-        </h2>
-        <section class="question-box" id="question-box" style="display: none;">
-
-            <!-- Questions Go Here -->
-            <!-- Answers go below -->
-            <div class="answer-area">
-                <button class="button" id="answer1">Answer 1</button>
-                <button class="button" id="answer2">Answer 2</button>
-                <button class="button" id="answer3">Answer 3</button>
-                <button class="button" id="answer4">Answer 4</button>
+        <section class="intro_page" id="intro_page">
+            <div id="intro">
+                <h1>::Coding ⭐ Quiz::</h1>
+                <h2>Try your best to answer the following Javascript questions. Remember to have fun! Click go to start!
+                    😊
+                </h2>
             </div>
+        </section>
+        <!-- Question Section -->
+        <section id="question-box" style="display: none;">
+            <!-- Questions Body -->
+
+            <!-- Answers go below -->
+            <h2 id="ask-question">Ask Questions</h2>
+            <ul>
+                <button class="answers" id="answer1">Answer 1</button>
+                <button class="answers" id="answer2">Answer 2</button>
+                <button class="answers" id="answer3">Answer 3</button>
+                <button class="answers" id="answer4">Answer 4</button>
+            </ul>
+            
             <!-- Timer -->
-            <div id="timer" style="display: none;">Timer</div>
+            <div id="timer">Timer</div>
             <!-- Check Answer -->
             <div id="check-answer" style="display: none;">Correct/Incorrect</div>
 

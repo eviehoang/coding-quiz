@@ -49,7 +49,7 @@ header {
 }
 
 
-.question-box,
+
 #question-box {
     position: relative;
     border-radius: 25px;
@@ -60,11 +60,12 @@ header {
     margin: auto;
     font-weight: bold;
 }
+
 .q-area{
     position: relative;
 }
 
-.answer-area {
+#answer-area {
     display: flexbox;
     padding: 4%;
     padding-bottom: 0;
