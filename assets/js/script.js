@@ -14,6 +14,12 @@ var answer4 = document.getElementById("answer4");
 
 var checker = document.getElementById("check-answer");
 
+var scoreArea = document.getElementById("scorearea");
+var end = document.getElementById("end");
+var finalScore = document.getElementById("final-score");
+var initials = document.getElementById("initials");
+var submit = document.getElementById("submit");
+
 // Questions
 var qSource = [
     {
@@ -113,13 +119,13 @@ function check(answer) {
     }, 1000);
 
     if (qSource[qNumber].answer === qSource[qNumber].choices[answer]) {
-        checker.textContent = "Yay!";
+        checker.textContent = "Yay! You got it.";
         score = score++;
     }
     else {
         timeLeft = timeLeft - 5;
         timeLeft.textContent = timeLeft;
-        checker.textContent = "Opps!";
+        checker.textContent = "Opps! Wrong answer.";
     }
     qNumber++;
     // if question number is less than the length still, get a new question.
@@ -141,8 +147,8 @@ function pick4() { check(3); };
 function getScore() {
     var currentScore = localStorage.getItem("Points");
     if (currentScore !== null) {
-        points = JSON.parse(currentScore);
-        return points;
+        score = JSON.parse(currentScore);
+        return score;
     }
     else {
         score = [];
@@ -196,10 +202,11 @@ function save() {
 }
 
 // if game ends before answering all questions correctly or if timed out. Game ends.
+// when game ends show total points earned
 function gameOver() {
-    questions.style.display = "none";
-    score.style.display = "block";
-    scoreTotal.textContent = "Your score is: " + total;
+    questionsPage.style.display = "none";
+    scoreArea.style.display = "block";
+    scoreTotal.textContent = "You've earned " + total + "ponts!";
     timeLeft.style.display = "none";
 };
 

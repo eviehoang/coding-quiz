@@ -28,9 +28,9 @@
             <h2 id="ask-question">Ask Questions</h2>
             <!-- Answers -->
             <ul>
-               <button class="answers" id="answer1">Answer 1</button>
+                <button class="answers" id="answer1">Answer 1</button>
                 <button class="answers" id="answer2">Answer 2</button>
-               <button class="answers" id="answer3">Answer 3</button>
+                <button class="answers" id="answer3">Answer 3</button>
                 <button class="answers" id="answer4">Answer 4</button>
             </ul>
 
@@ -38,8 +38,6 @@
             <div id="timer">Timer</div>
             <!-- Check Answer -->
             <div id="check-answer" style="display: none;">Correct/Incorrect</div>
-            <!-- Score Area -->
-            <div id="scorearea" style="display: none;">Correct/Incorrect</div>
 
         </section>
         <br>
@@ -49,9 +47,25 @@
             <button class="button" id="goBtn">Start!</button>
         </div>
 
+        <!-- Game Finish Area -->
+        <section id="scorearea" style="display: none;">
+            <h2 id="end">Finished!</h2>
+            <h3 id="final-score">You've earned x points.</h3>
+            <p>Initials Please: </p>
+            <input id="initials">
+            <button class="button" id="submit">Submit</button>
+        </section>
+
+        <!-- Leaderboard Area-->
+        <section id="scorePage" >
+            <h2>::Highscores::</h2>
+            <div class= "scoreboxes" id="leaderboard"></div>
+        </section>
+
     </main>
     <footer>
         <div>
+            <!-- To access leaderboard -->
             <button class="button" id="scoring">View Highscores</button>
         </div>
     </footer>
