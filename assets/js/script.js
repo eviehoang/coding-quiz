@@ -4,7 +4,8 @@ var answer1 = document.getElementById("answer1");
 var answer2 = document.getElementById("answer1");
 var answer3 = document.getElementById("answer1");
 var answer4 = document.getElementById("answer1");
-var questions = document.querySelector("question-box")
+var questions = document.getElementById("q-area")
+var choices = document.getElementById("answer-area")
 
 var checkArea = document.getElementById("check-answer");
 
@@ -66,10 +67,10 @@ var qCount = 1;
 function time() {
     var timeInterval = setInterval(function () {
 
-        secondsLeft--;
-        timeLeft.textContent = secondsLeft;
+        timeLeft--;
+        timeLeft.textContent = timeLeft;
 
-        if (secondsLeft = 0) {
+        if (timeLeft = 0) {
             clearInterval(timeInterval);
             timeLeft.textContent = "Oh no!!";
             questions.textContent = "Time is up!";
@@ -84,8 +85,9 @@ function time() {
 };
 
 // Starting the quiz.
-function goBtn() {
-    questions.style.display = "none";
+function start() {
+    questions.style.display = "block";
+    choices.style.display = "block";
     qNumber = 0
     time();
     showQuestions(qNumber);
@@ -94,11 +96,11 @@ function goBtn() {
 // Call on Question & Answers
 function showQuestions(e) {
     questions.textContent = qs[e].question;
-    answer1.textContent = qa[e].choices[0];
-    answer2.textContent = qa[e].choices[1];
-    answer3.textContent = qa[e].choices[2];
-    answer4.textContent = qa[e].choices[3];
-    qNumber = e;
+    answer1.textContent = qs[e].answers[0];
+    answer2.textContent = qs[e].answers[1];
+    answer3.textContent = qs[e].answers[2];
+    answer4.textContent = qs[e].answers[3];
+    e = qNumber;
 };
 
 // If answer is right or wrong, display.
@@ -179,7 +181,7 @@ function updatedList(e) {
     localStorage.setItem("Points", JSON.stringify(addList));
 };
 
-function save(){
+function save() {
     var rank = {
         user: userInitial.value,
         score: score,
@@ -199,6 +201,6 @@ function gameOver() {
 
 // Event listeners
 
-goBtn.addEventListener("click", questions);
+goBtn.addEventListener("click", start);
 
 
