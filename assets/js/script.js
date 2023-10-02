@@ -131,9 +131,9 @@ function check(event) {
 };
 
 // Store and get scores
-function getScore(){
+function getScore() {
     var currentScore = localStorage.getItem("Points");
-    if (currentScore !== null){
+    if (currentScore !== null) {
         points = JSON.parse(currentScore);
         return points;
     }
@@ -144,22 +144,49 @@ function getScore(){
 };
 
 // show the score
-function showScore(){
+function showScore() {
     scoreArea.innerHTML = "";
     scoreArea.style.display = "block";
     var topScore = sort();
-    var topThree = topScore.slice(0,3);
-    for (var i = 0; i< topThree.length; i++){
-        var r= topThree[i];
+    var topThree = topScore.slice(0, 3);
+    for (var i = 0; i < topThree.length; i++) {
+        var r = topThree[i];
         var li = document.createElement("li");
         li.textContent = r.user + " - " + r.score;
         li.setAttribute("score-area", i);
         scoreArea.appendChild(li);
     }
-
 };
 
-// Sort score by highest point
+// Sort score by highest point and display list
+function sort() {
+    var list = getScore();
+    if (getScore == null) {
+        return;
+    }
+    else {
+        list.sort(function (a, b) {
+            return b.score - a.score;
+        }
+        )
+        return list;
+    }
+};
+
+function updatedList(e) {
+    var addList = getScore();
+    addList.push(e);
+    localStorage.setItem("Points", JSON.stringify(addList));
+};
+
+function save(){
+    var rank = {
+        user: userInitial.value,
+        score: score,
+    }
+    addItem(rank);
+    getScore();
+}
 
 // if game ends before answering all questions correctly or if timed out. Game ends.
 function gameOver() {
@@ -169,5 +196,9 @@ function gameOver() {
     timeLeft.style.display = "none";
 };
 
+
+// Event listeners
+
+goBtn.addEventListener("click", questions);
 
 
