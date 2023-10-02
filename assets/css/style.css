@@ -119,3 +119,11 @@ ul {
     font-weight: normal;
     font-style: oblique;
 }
+#check-answer {
+    color: darkgrey;
+    font-size: 1.5em;
+    margin: 2%;
+    text-align: center;
+    font-weight: normal;
+    font-style: oblique;
+}
