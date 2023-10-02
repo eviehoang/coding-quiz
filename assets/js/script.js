@@ -17,41 +17,41 @@ var checker = document.getElementById("check-answer");
 // Questions
 var qSource = [
     {
-        question: "The condition of a function is wrapped with a ____.",
+        questions: "The condition of a function is wrapped with a ____.",
         choices: ["quotation marks", "curly brackets", "parentheses", "square Brackets"],
         answer: "parentheses",
     },
 
     {
-        question: "String values are found between what?",
+        questions: "String values are found between what?",
         choices: ["semi-colons", "curly brackets", "periods", "quotation marks"],
         answer: "quotation marks",
 
     },
 
     {
-        question: "Commonly used data types DO NOT include?",
+        questions: "Commonly used data types DO NOT include?",
         choices: ["strings", "booleons", "functions", "numbers"],
         answer: "functions",
 
     },
 
     {
-        question: "Inside which HTML element do we put the JavaScript?",
+        questions: "Inside which HTML element do we put the JavaScript?",
         choices: ["<script>", "<js>", "<body>", "<footer>"],
         answer: "<script>",
 
     },
 
     {
-        question: "What is the correct syntax to refer to a script file?",
+        questions: "What is the correct syntax to refer to a script file?",
         choices: ["<script name= >", "<script js= >", "<script href= >", "none of the above"],
         answer: "none of the above",
 
     },
 
     {
-        question: "A useful debugging tool during development for printing content to the console area is?",
+        questions: "A useful debugging tool during development for printing content to the console area is?",
         choices: ["terminal", "console log", "git bash", "return;"],
         answer: "console log",
 
@@ -62,7 +62,7 @@ var timer = document.getElementById("timer");
 var timerElement = document.getElementById("timer")
 var timeLeft = 60;
 var qNumber = 0;
-var finalScore = 0;
+var score = 0;
 var qCount = 1;
 
 // Timer: When I click the start button, then the timer starts. 
@@ -95,43 +95,47 @@ function start() {
 };
 
 // Call on Question & Answers
-function showQuestion(n) {
-    qustionAsk.textContent = qSource[n].question; 
-    answer1.textContent = qSource[n].choices[0];
-    answer2.textContent = qSource[n].choices[1];
-    answer3.textContent = qSource[n].choices[2];
-    answer4.textContent = qSource[n].choices[3];
-    n = qNumber;
+function showQuestion() {
+    qustionAsk.textContent = qSource[qNumber].questions;
+    answer1.textContent = qSource[qNumber].choices[0];
+    answer2.textContent = qSource[qNumber].choices[1];
+    answer3.textContent = qSource[qNumber].choices[2];
+    answer4.textContent = qSource[qNumber].choices[3];
 };
 
 // If answer is right or wrong, display.
-function check(event) {
+function check(answer) {
     // display checked answer
-    event.preventDefault();
-    checkArea.style.display = "block";
+    checker.style.display = "block";
     // how long display last
     setTimeout(function () {
-        checkArea.style.display = "none";
+        checker.style.display = "none";
     }, 1000);
 
-    // actual checking
-    if (qs[qNumber].answers == event.target.value) {
-        checkArea.textContent = "Yay!";
-        score = score + 1;
+    if (qSource[qNumber].answer === qSource[qNumber].choices[answer]) {
+        checker.textContent = "Yay!";
+        score = score++;
     }
     else {
-        secondsLeft = secondsLeft - 5;
-        checkArea.textContent = "Opps!";
+        timeLeft = timeLeft - 5;
+        timeLeft.textContent = timeLeft;
+        checker.textContent = "Opps!";
     }
-    if (qNumber < qs.length - 1) {
-        // if question number is less than the length still, get a new question.
-        showQuestions(qNumber + 1)
+    qNumber++;
+    // if question number is less than the length still, get a new question.
+    if (qNumber < qSource.length) {
+        showQuestion();
     }
     else {
         gameOver();
     }
-    qCount++;
-};
+}
+
+// Checking individual answers
+function pick1() { check(0); };
+function pick2() { check(1); };
+function pick3() { check(2); };
+function pick4() { check(3); };
 
 // Store and get scores
 function getScore() {
@@ -203,8 +207,7 @@ function gameOver() {
 // Event listeners
 
 goBtn.addEventListener("click", start);
-// answer1.addEventListener("click", chooseA);
-// answer2.addEventListener("click", chooseB);
-// answer3.addEventListener("click", chooseC);
-// answer4.addEventListener("click", chooseD);
-
+answer1.addEventListener("click", pick1);
+answer2.addEventListener("click", pick2);
+answer3.addEventListener("click", pick3);
+answer4.addEventListener("click", pick4);
