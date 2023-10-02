@@ -119,6 +119,7 @@ header {
 }
 
 #timer {
+    display: block;
     color: darkgrey;
     font-size: 1.5em;
     margin: 3%;
