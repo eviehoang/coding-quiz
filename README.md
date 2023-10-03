@@ -1,7 +1,7 @@
 
 # Coding Quiz
 ![](assets/images/program-sshot.png)
-![](assets/images/sshot2.png)
+![](assets/images/Quiz-area-sshot.png)
 
 Created a quiz app designed to assess students' JavaScript knowledge. The app features a timer that sets a 60-second limit for answering six questions. Incorrect answers deduct time from the countdown. After each quiz session, participants can input their initials to record their scores, which are subsequently displayed on a leaderboard.
 
