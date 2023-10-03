@@ -80,7 +80,6 @@ var qCount = 1;
 
 function time() {
     timeLeft = 60;
-    qNumber = 0;
     totalScore = 0;
     qCount = 1;
 
