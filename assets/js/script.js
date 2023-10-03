@@ -3,6 +3,8 @@ var intro = document.getElementById("intro_page");
 var goBtn = document.getElementById("goBtn");
 var backBtn = document.getElementById("back-btn")
 
+var timerElement = document.getElementById("timer")
+
 var questionsPage = document.getElementById("question-box");
 var qustionAsk = document.getElementById("ask-question");
 
@@ -67,18 +69,21 @@ var qSource = [
 
     }];
 
-// Timer
 
-var timerElement = document.getElementById("timer")
+// Timer: When I click the start button, then the timer starts. 
+// If timer runs out display score instead.
+
 var timeLeft = 60;
 var qNumber = 0;
 var totalScore = 0;
 var qCount = 1;
 
-// Timer: When I click the start button, then the timer starts. 
-// If timer runs out display score instead.
-
 function time() {
+    timeLeft = 60;
+    qNumber = 0;
+    totalScore = 0;
+    qCount = 1;
+
     var timeInterval = setInterval(function () {
         timeLeft--;
         timerElement.textContent = timeLeft; // Update the timer display
