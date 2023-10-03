@@ -1,6 +1,7 @@
 // Variables for questions
 var intro = document.getElementById("intro_page");
 var goBtn = document.getElementById("goBtn");
+var backBtn = document.getElementById("back-btn")
 
 var questionsPage = document.getElementById("question-box");
 var qustionAsk = document.getElementById("ask-question");
@@ -19,6 +20,9 @@ var end = document.getElementById("end");
 var finalScore = document.getElementById("final-score");
 var initials = document.getElementById("initials");
 var submit = document.getElementById("submit");
+var scorePage = document.getElementById("scorePage")
+
+var leaderboard = document.getElementById("leaderboard");
 
 // Questions
 var qSource = [
@@ -64,7 +68,7 @@ var qSource = [
     }];
 
 // Timer
-var timer = document.getElementById("timer");
+
 var timerElement = document.getElementById("timer")
 var timeLeft = 60;
 var qNumber = 0;
@@ -90,10 +94,19 @@ function time() {
     }, 1000);
 };
 
+// if game ends before answering all questions correctly or if timed out. Game ends.
+// when game ends show total points earned
+function gameOver() {
+    questionsPage.style.display = "none";
+    scoreArea.style.display = "block";
+    finalScore.textContent = "You've earned " + score + " points!";
+    timerElement.style.display = "none";
+};
+
 // Starting the quiz.
 function start() {
     intro.style.display = "none";
-    questionsPage.style.display = "contents";
+    questionsPage.style.display = "block";
     goBtn.style.display = "none";
     qNumber = 0;
     time();
@@ -123,7 +136,7 @@ function check(answer) {
         score = score++;
     }
     else {
-        timeLeft = timeLeft - 5;
+        timeLeft = timeLeft - 10;
         timeLeft.textContent = timeLeft;
         checker.textContent = "Opps! Wrong answer.";
     }
@@ -144,72 +157,64 @@ function pick3() { check(2); };
 function pick4() { check(3); };
 
 // Store and get scores
-function getScore() {
-    var currentScore = localStorage.getItem("Points");
-    if (currentScore !== null) {
-        score = JSON.parse(currentScore);
-        return score;
-    }
-    else {
-        score = [];
-    }
-    return score;
-};
+function storeScores(event) {
+    event.preventDefault();
 
-// show the score
-function showScore() {
-    scoreArea.innerHTML = "";
-    scoreArea.style.display = "block";
-    var topScore = sort();
-    var topThree = topScore.slice(0, 3);
-    for (var i = 0; i < topThree.length; i++) {
-        var r = topThree[i];
-        var li = document.createElement("li");
-        li.textContent = r.user + " - " + r.score;
-        li.setAttribute("score-area", i);
-        scoreArea.appendChild(li);
-    }
-};
-
-// Sort score by highest point and display list
-function sort() {
-    var list = getScore();
-    if (getScore == null) {
+    // if no initials
+    if (initials.value === "") {
+        alert("Please enter your initials to proceed.");
         return;
     }
+
+    timer.style.display = "none";
+    checker.style.display = "none";
+    scoreArea.style.display = "block";
+
+    var savedScores = localStorage.getItem("high scores");
+    var scoreArray;
+
+    if (savedScores == null) {
+        scoreArray = [];
+    }
     else {
-        list.sort(function (a, b) {
-            return b.score - a.score;
-        }
-        )
-        return list;
+        scoreArray = JSON.parse(savedScores)
     }
-};
 
-function updatedList(e) {
-    var addList = getScore();
-    addList.push(e);
-    localStorage.setItem("Points", JSON.stringify(addList));
-};
+    var playerScore = {
+        initial: initials.value,
+        score: finalScore.textContent
+    };
 
-function save() {
-    var rank = {
-        user: userInitial.value,
-        score: score,
-    }
-    addItem(rank);
-    getScore();
+    scoreArray.push(playerScore);
+
+    // stringify
+    var scoreString = JSON.stringify(scoreArray);
+    window.localStorage.setItem("high scores", scoreString);
+
+    // display all scores
+    showScores();
 }
 
-// if game ends before answering all questions correctly or if timed out. Game ends.
-// when game ends show total points earned
-function gameOver() {
-    questionsPage.style.display = "none";
-    scoreArea.style.display = "block";
-    scoreTotal.textContent = "You've earned " + total + "ponts!";
-    timeLeft.style.display = "none";
-};
+function showScores() {
+    scoreArea.style.display = "none";
+    scorePage.style.display = "block";
 
+
+    var savedScores = localStorage.getItem("high scores");
+
+    if (savedScores === null) {
+        return;
+    }
+
+    var storedScores = JSON.parse(savedScores);
+
+    for (var i; i < storedScores.length; i++) {
+        var newHighscore = document.createElement("li");
+        newHighscore.innerHTML = storedScores[i].initial + ": " + storedScores[i].score;
+        leaderboard.appendChild(newHighscore);
+
+    }
+}
 
 // Event listeners
 
@@ -218,3 +223,23 @@ answer1.addEventListener("click", pick1);
 answer2.addEventListener("click", pick2);
 answer3.addEventListener("click", pick3);
 answer4.addEventListener("click", pick4);
+
+submit.addEventListener("click", function (event) {
+    storeScores(event);
+}
+)
+
+var viewLeaderboard = document.getElementById("scoring")
+viewLeaderboard.addEventListener("click", function () {
+    showScores();
+    questionsPage.style.display = "none";
+    intro.style.display = "none";
+    goBtn.style.display = "none";
+})
+
+backBtn.addEventListener("click", function() {
+    intro.style.display = "block";
+    scorePage.style.display = "none";
+    questionsPage.style.display = "none";
+    goBtn.style.display = "block";
+});
