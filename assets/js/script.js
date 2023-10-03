@@ -2,6 +2,7 @@
 var intro = document.getElementById("intro_page");
 var goBtn = document.getElementById("goBtn");
 var backBtn = document.getElementById("back-btn")
+var clear = document.getElementById("clearScores")
 
 var timerElement = document.getElementById("timer")
 
@@ -229,12 +230,19 @@ submit.addEventListener("click", function () {
     scoreArea.style.display = "none";
     scorePage.style.display = "block";
     backBtn.style.display = "block";
-}
-)
+    clear.style.display = "block";
+});
 
 backBtn.addEventListener("click", function () {
     intro.style.display = "block";
     scorePage.style.display = "none";
     goBtn.style.display = "block";
     backBtn.style.display = "none";
+    clear.style.display = "none";
+});
+
+clear.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.clear();
+    showScore();
 });
