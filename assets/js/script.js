@@ -231,9 +231,6 @@ submit.addEventListener("click", function () {
 backBtn.addEventListener("click", function () {
     intro.style.display = "block";
     scorePage.style.display = "none";
-    questionsPage.style.display = "none";
     goBtn.style.display = "block";
-    timerElement.style.display = "none";
-    leaderboard.style.display = "none";
     backBtn.style.display = "none";
 });
